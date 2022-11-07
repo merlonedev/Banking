@@ -19,8 +19,10 @@ Holder holder = new(holderId, holderFirstName, holderLastName);
 
 Random random = new();
 int accNumber = random.Next(1000000, 9999999);
+Console.WriteLine("Create your password: ");
+string password = Console.ReadLine()!;
 
-Account account = new(holder, accNumber);
+Account account = new(holder, accNumber, password);
 
 string newTransaction = "y";
 

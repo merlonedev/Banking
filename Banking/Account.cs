@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,12 @@ namespace Banking
     internal class Account
     {
 
-        public Account(Holder holder, int accNumber)
+        public Account(Holder holder, int accNumber, string password)
         {
             Holder = holder;
             AccNumber = accNumber;
             Balance = 0;
+            Password = password;
         }
 
         public void Deposit(double amount)
@@ -32,9 +34,9 @@ namespace Banking
             }
         }
 
-        public int AccNumber { get; set; }
-        public Holder Holder { get; set; }
-
+        public int AccNumber { get; }
+        public Holder Holder { get; }
+        private string Password {get; }
         public double Balance { get; set; }
 
     }
