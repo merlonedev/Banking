@@ -38,7 +38,7 @@ do
     }
     else if (!char.IsControl(keyInfo.KeyChar))
     {
-        Console.WriteLine("*");
+        Console.Write("*");
         password += keyInfo.KeyChar;
     }
 } while (key != ConsoleKey.Enter);
@@ -47,9 +47,43 @@ do
 
 Account account = new(holder, accNumber, password);
 
-
+Console.WriteLine("");
 Console.WriteLine($"Welcome to Cesharp Virtual Banking, {holder.FirstName} {holder.LastName}.");
 Console.WriteLine($"Your account number is {account.AccNumber}.");
+
+bool loggedIn = false;
+
+do
+{
+    Console.WriteLine("Please login with your account number and password.");
+    Console.WriteLine("Account number: ");
+    int loginAccNumber = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Password: ");
+    string loginPassword = "";
+    // \/ source: https://stackoverflow.com/questions/3404421/password-masking-console-application
+
+    do
+    {
+        var keyInfo = Console.ReadKey(intercept: true);
+        key = keyInfo.Key;
+
+        if (key == ConsoleKey.Backspace && loginPassword.Length > 0)
+        {
+            Console.Write("\b \b");
+            loginPassword = loginPassword[0..^1];
+        }
+        else if (!char.IsControl(keyInfo.KeyChar))
+        {
+            Console.Write("*");
+            loginPassword += keyInfo.KeyChar;
+        }
+    } while (key != ConsoleKey.Enter);
+
+    // /\ source: https://stackoverflow.com/questions/3404421/password-masking-console-application
+
+    loggedIn = account.Login(loginAccNumber, loginPassword);
+
+} while (loggedIn == false);
 
 string newTransaction = "y";
 

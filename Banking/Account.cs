@@ -42,6 +42,22 @@ namespace Banking
             }
         }
 
+        public bool Login(int accNumber, string password)
+        {
+            if (accNumber == AccNumber && password == Password)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Login successful");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Failed login");
+                return false;
+            }
+        }
+
         public int AccNumber { get; }
         public Holder Holder { get; }
         private string Password { get; }
