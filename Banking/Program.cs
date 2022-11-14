@@ -20,14 +20,38 @@ Holder holder = new(holderId, holderFirstName, holderLastName);
 Random random = new();
 int accNumber = random.Next(1000000, 9999999);
 Console.WriteLine("Create your password: ");
-string password = Console.ReadLine()!;
+string password = "";
+
+// \/ source: https://stackoverflow.com/questions/3404421/password-masking-console-application
+
+ConsoleKey key;
+
+do
+{
+    var keyInfo = Console.ReadKey(intercept: true);
+    key = keyInfo.Key;
+
+    if (key == ConsoleKey.Backspace && password.Length > 0)
+    {
+        Console.Write("\b \b");
+        password = password[0..^1];
+    }
+    else if (!char.IsControl(keyInfo.KeyChar))
+    {
+        Console.WriteLine("*");
+        password += keyInfo.KeyChar;
+    }
+} while (key != ConsoleKey.Enter);
+
+// /\ source: https://stackoverflow.com/questions/3404421/password-masking-console-application
 
 Account account = new(holder, accNumber, password);
 
-string newTransaction = "y";
 
 Console.WriteLine($"Welcome to Cesharp Virtual Banking, {holder.FirstName} {holder.LastName}.");
 Console.WriteLine($"Your account number is {account.AccNumber}.");
+
+string newTransaction = "y";
 
 while (newTransaction.ToLower() == "y")
 {

@@ -20,7 +20,14 @@ namespace Banking
 
         public void Deposit(double amount)
         {
-            Balance += amount;
+            if (amount <= 0)
+            {
+                Console.WriteLine("Can't deposit $0; please, input a value greater than 0.");
+            }
+            else
+            {
+                Balance += amount;
+            }
         }
 
         public void Withdraw(double amount)
@@ -28,7 +35,8 @@ namespace Banking
             if (Balance > 0 && Balance >= amount)
             {
                 Balance -= amount;
-            } else
+            }
+            else
             {
                 Console.WriteLine("Unable to withdraw: not enough balance.");
             }
@@ -36,7 +44,7 @@ namespace Banking
 
         public int AccNumber { get; }
         public Holder Holder { get; }
-        private string Password {get; }
+        private string Password { get; }
         public double Balance { get; set; }
 
     }
